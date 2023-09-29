@@ -42,7 +42,7 @@ void bubbleSort(int arr[], int n) {
 
 for (i = 0; i < n - 1; i++) { // check for each integer whether to swap or not
     swapped = false;
-    for (j = 0; j < n - 1 - i; j++) { // push the biggest integer towards the end
+    for (j = 0; j < n - 1 - i; j++) { // push the biggest integer at the beginning of the array
       if (arr[j] > arr[j + 1]) {
         int swap = arr[j];
         arr[j] = arr[j + 1];
