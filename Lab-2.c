@@ -7,6 +7,7 @@ void bubbleSort(int arr[], int n);
 void insertionSort(int arr[], int n);
 void selectionSort(int arr[], int n);
 void sortQuick(int arr[], int start, int end);
+void cocktailSort(int arr[], int n);
 
 int main() {
     int n; // length of array
@@ -23,6 +24,7 @@ int main() {
     }
     // output each sorting algorithm
     bubbleSort(arr, n);
+    cocktailSort(arr, n);
     insertionSort(arr, n);
     selectionSort(arr, n);
     sortQuick(arr, 0, n);
@@ -64,10 +66,65 @@ for (i = 0; i < n - 1; i++) { // check for each integer whether to swap or not
 }
 
 
+// COCKTAIL SORT
+void cocktailSort(int arr[], int n) {
+    bool swapped = true;
+    int start = 0;
+    int end = n - 1;
+
+    clock_t start1, end1;
+    int cpu_microseconds_used;
+    start1 = clock();
+
+    while (swapped == true) {
+        // reset the swapped flag on entering the loop, because it might be true from a previous iteration.
+        swapped = false;
+
+        // loop from left to right same as the bubble sort
+        for (int i = start; i < end; i++) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                swapped = true;
+            }
+        }
+
+        // if nothing moved, then array is sorted
+        if (swapped == false)
+            break;
+
+        // otherwise, reset the swapped flag so that it can be used in the next stage
+        swapped = false;
+
+        // move the end point back by one, because item at the end is in its rightful spot
+        end--;
+
+        // from right to left, doing the same comparison as in the previous stage
+        for (int i = end - 1; i >= start; i--) {
+            if (arr[i] > arr[i + 1]) {
+                swap(arr[i], arr[i + 1]);
+                swapped = true;
+            }
+        }
+
+        // increase the starting point, because the last stage would have moved the next smallest number to its rightful spot.
+        start++;
+    }
+
+    end1 = clock();
+    cpu_microseconds_used = (int) ((((double) (end1 - start1)) * 1000000) / CLOCKS_PER_SEC);
+
+    printf("\nCocktailSort: [");
+    for(int i = 0; i < n; i++) {
+        (i == n-1) ? printf("%d]", arr[i]) : printf("%d, ", arr[i]);
+    }
+    printf("\nExecution time: %d microseconds\n", cpu_microseconds_used);
+}
+
+
 // INSERTION SORT
 void insertionSort(int arr[], int n) {
     int i, a, j; // i - the right element, j - the left element
-    
+
     clock_t start, end;
     int cpu_microseconds_used;
     start = clock();
