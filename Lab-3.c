@@ -70,32 +70,40 @@ int** mountainSort(int oldArr[], int n, int m) {
     
     while (indexOfOldArr < length) {
             // move right
+            if (indexOfOldArr < length) {
             for (int i = xStart; i <= xEnd; i++) {
                 newArr[yStart][i] = oldArr[indexOfOldArr];
                 indexOfOldArr++;
             }
             yStart++;
+            } else break;
 
         // move down
+        if (indexOfOldArr < length) {
             for (int i = yStart; i <= yEnd; i++) {
-                newArr[yStart][xEnd] = oldArr[indexOfOldArr];
+                newArr[i][xEnd] = oldArr[indexOfOldArr];
                 indexOfOldArr++;
             }
             xEnd--;
-
+        } else break;
+        
         // move left
+                if (indexOfOldArr < length) {
                 for (int i = xEnd; i >= xStart; i--) {
-                    newArr[yEnd][xEnd] = oldArr[indexOfOldArr];
+                    newArr[yEnd][i] = oldArr[indexOfOldArr];
                     indexOfOldArr++;
                 }
                 yEnd--;
+                } else break;
 
         // move up
+            if (indexOfOldArr < length) {
             for (int i = yEnd; i >= yStart; i--) {
-                newArr[yEnd][xStart] = oldArr[indexOfOldArr];
+                newArr[i][xStart] = oldArr[indexOfOldArr];
                 indexOfOldArr++;
             }
             xStart++;
+            } else break;
     }
     return newArr;
 }
@@ -123,6 +131,7 @@ int main() {
             }
         }
     }
+    printf("\n");
     
     // for(int i = 1; i <= n; i++) {
     //     printf("Row %d\n", i);
