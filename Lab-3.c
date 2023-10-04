@@ -158,9 +158,58 @@ int main() {
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
             if (j == m-1) {
-                printf("%d\n", mountain2D[i][j]);
+                if (mountain2D[i][j] >= 0) {
+                    if (mountain2D[i][j] < 10) {
+                        printf("     %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] < 100) {
+                        printf("    %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] < 1000) {
+                        printf("   %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] < 10000) {
+                        printf("  %d", mountain2D[i][j]);
+                    } else {
+                        printf(" %d", mountain2D[i][j]);
+                    }
+                } else {
+                    if (mountain2D[i][j] > -10) {
+                        printf("    %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] > -100) {
+                        printf("   %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] > -1000) {
+                        printf("  %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] > -10000) {
+                        printf(" %d", mountain2D[i][j]);
+                    } else {
+                        printf("%d", mountain2D[i][j]);
+                    }
+                }
+                printf("\n");
             } else {
-                printf("%d ", mountain2D[i][j]);
+                if (mountain2D[i][j] >= 0) {
+                    if (mountain2D[i][j] < 10) {
+                        printf("     %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] < 100) {
+                        printf("    %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] < 1000) {
+                        printf("   %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] < 10000) {
+                        printf("  %d", mountain2D[i][j]);
+                    } else {
+                        printf(" %d", mountain2D[i][j]);
+                    }
+                } else {
+                    if (mountain2D[i][j] > -10) {
+                        printf("    %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] > -100) {
+                        printf("   %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] > -1000) {
+                        printf("  %d", mountain2D[i][j]);
+                    } else if (mountain2D[i][j] > -10000) {
+                        printf(" %d", mountain2D[i][j]);
+                    } else {
+                        printf("%d", mountain2D[i][j]);
+                    }
+                }
             }
         }
     }
