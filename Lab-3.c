@@ -113,8 +113,6 @@ int** mountainSort(int oldArr[], int n, int m) {
             }
             xEnd--;
         } else break;
-
-        yMiddle--;
     }
     
     return newArr;
