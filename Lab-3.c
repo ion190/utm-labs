@@ -112,15 +112,15 @@ int** mountainSort(int oldArr[], int n, int m) {
             xEnd--;
         } else break;
 
+yMiddle--;
     while (indexOfOldArr < length) {
         
         // move down
         if (indexOfOldArr < length) {
-            for (int i = yStart; i <= yEnd; i++) {
+            for (int i = yMiddle; i <= yEnd; i++) {
                 newArr[i][xEnd] = oldArr[indexOfOldArr];
                 indexOfOldArr++;
             }
-            xEnd--;
         } else break;
         
         
@@ -151,6 +151,18 @@ int** mountainSort(int oldArr[], int n, int m) {
             yStart++;
         } else break;
     }
+
+// move down until middle
+        if (indexOfOldArr < length) {
+            for (int i = yStart; i < yMiddle; i++) {
+                newArr[i][xEnd] = oldArr[indexOfOldArr];
+                indexOfOldArr++;
+            }
+            xEnd--;
+        } else break;
+
+xEnd--;
+yMiddle--;
     
     return newArr;
 }
