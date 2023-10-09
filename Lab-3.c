@@ -65,54 +65,8 @@ int** mountainSort(int oldArr[], int n, int m) {
     int xEnd = m-1;
     int yEnd = n-1;
     int length = n*m;
-    int yMiddle = n/2;
+    int yMiddle = (int) (n/2);
 
-    // move down
-        if (indexOfOldArr < length) {
-            for (int i = yMiddle; i <= yEnd; i++) {
-                newArr[i][xEnd] = oldArr[indexOfOldArr];
-                indexOfOldArr++;
-            }
-        } else break;
-
-// move left
-        if (indexOfOldArr < length) {
-            for (int i = xEnd-1; i >= xStart; i--) {
-                newArr[yEnd][i] = oldArr[indexOfOldArr];
-                indexOfOldArr++;
-            }
-            yEnd--;
-        } else break;
-
-        // move up
-        if (indexOfOldArr < length) {
-        for (int i = yEnd; i >= yStart; i--) {
-            newArr[i][xStart] = oldArr[indexOfOldArr];
-            indexOfOldArr++;
-        }
-        xStart++;
-        } else break;
-
-        // move right
-        if (indexOfOldArr < length) {
-            for (int i = xStart; i <= xEnd; i++) {
-                newArr[yStart][i] = oldArr[indexOfOldArr];
-                indexOfOldArr++;
-            }
-            yStart++;
-        } else break;
-    }
-
-    // move down until middle
-        if (indexOfOldArr < length) {
-            for (int i = yStart; i < yMiddle; i++) {
-                newArr[i][xEnd] = oldArr[indexOfOldArr];
-                indexOfOldArr++;
-            }
-            xEnd--;
-        } else break;
-
-yMiddle--;
     while (indexOfOldArr < length) {
         
         // move down
@@ -135,11 +89,11 @@ yMiddle--;
 
         // move up
         if (indexOfOldArr < length) {
-        for (int i = yEnd; i >= yStart; i--) {
-            newArr[i][xStart] = oldArr[indexOfOldArr];
-            indexOfOldArr++;
-        }
-        xStart++;
+            for (int i = yEnd; i >= yStart; i--) {
+                newArr[i][xStart] = oldArr[indexOfOldArr];
+                indexOfOldArr++;
+            }
+            xStart++;
         } else break;
 
         // move right
@@ -150,9 +104,8 @@ yMiddle--;
             }
             yStart++;
         } else break;
-    }
 
-// move down until middle
+        // move down until middle
         if (indexOfOldArr < length) {
             for (int i = yStart; i < yMiddle; i++) {
                 newArr[i][xEnd] = oldArr[indexOfOldArr];
@@ -161,8 +114,8 @@ yMiddle--;
             xEnd--;
         } else break;
 
-xEnd--;
-yMiddle--;
+        yMiddle--;
+    }
     
     return newArr;
 }
