@@ -32,51 +32,10 @@ int countPunctuationMarks(char text[], int length) {
     return count;
 }
 
-// void sortText(char text[], int length, int wordsLength) {
-//     char sortedSentence[length];
-//     char textArr[wordsLength][length];
-    
-//     // push all words in textArr:
-//     int j = 0;
-//     while (j < wordsLength) {
-//         for (int i = 0; i < length; i++) {
-//             while (i < length && text[i] != ' ') {
-//                 textArr[j] = textArr[j] + text[i];
-//             }
-//             j++;
-//         }
-//     }
-    
-//     // sort the words in textArr:
-//     for (int i = 0; i < n - 1; i++) {
-//         int min = i;
-//         for (int j = i + 1; j < n; j++) {
-//         // Select the minimum element
-//         if ((int) textArr[min][0] > (int) textArr[j][0]) 
-//             min = j;
-//         }
-
-//         // put min at the correct position
-//         char x[strlen(textArr[min])] = textArr[min];
-//         textArr[min] = textArr[i];
-//         textArr[i] = x;
-//     }
-    
-//     // push all words from textArr to sortedSentence:
-//     for (int i = 0; i < length; i++) {
-//         if (i != length-1) {
-//             sortedSentence[i] = textArr[i] + " ";
-//         } else {
-//             sortedSentence[i] = textArr[i];
-//         }
-//     }
-
-// }
 
 bool checkEmail(char email[], int length) {
     int atPos = -1;  // Position of '@'
     int dotPos = -1; // Position of '.'
-
     // Check if the email is empty
     if (strlen(email) == 0) {
         return false;
@@ -88,15 +47,14 @@ bool checkEmail(char email[], int length) {
             atPos = i;
         } else if (email[i] == '.') {
             dotPos = i;
-        }
     }
-
+    }
     // Check if '@' and '.' are in the right positions
     if (atPos == -1 || dotPos == -1 || atPos >= dotPos || atPos == 0 || dotPos == strlen(email) - 1) {
         return false;
+    } else {
+        return true;
     }
-
-    return true;
 }
 
 int main() {
