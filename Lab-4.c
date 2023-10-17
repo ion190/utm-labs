@@ -38,11 +38,21 @@ bool checkEmail(char email[], int length) {
     int dotPos = -1; // Position of '.'
     bool spaces = false;
     bool dotAfterDot = false;
+    bool firstDot = false;
+    bool dotAfterAtOrAtAfterDot = false;
     // Check if the email is empty
     if (strlen(email) == 0) {
         return false;
     }
 
+if (email[i] == ".") {
+    firstDot = true;
+}
+for (int i = 0; i < strlen(email)-1; i++) {
+    if ((email[i] == "." && email[i+1] == "@") || (email[i] == "@" && email[i+1] == ".")) {
+        dotAfterAtOrAtAfterDot = true;
+    }
+}
     // check if there exists . after @
     for (int i = 0; i < strlen(email); i++) {
         if (email[i] == '@') {
@@ -64,7 +74,7 @@ bool checkEmail(char email[], int length) {
         }
     }
     // Check if email is valid
-    if (atPos == -1 || dotPos == -1 || atPos >= dotPos || atPos == 0 || dotPos == strlen(email) - 1 || spaces == true || dotAfterDot == true) {
+    if (atPos == -1 || dotPos == -1 || atPos >= dotPos || atPos == 0 || dotPos == strlen(email) - 1 || spaces == true || dotAfterDot == true || firstDot == true || dotAfterAtOrAtAfterDot == true) {
         return false;
     } else {
         return true;
