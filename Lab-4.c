@@ -36,12 +36,14 @@ int countPunctuationMarks(char text[], int length) {
 bool checkEmail(char email[], int length) {
     int atPos = -1;  // Position of '@'
     int dotPos = -1; // Position of '.'
+    bool spaces = false;
+    bool dotAfterDot = false;
     // Check if the email is empty
     if (strlen(email) == 0) {
         return false;
     }
 
-    // Find the position of '@' and '.'
+    // check if there exists . after @
     for (int i = 0; i < strlen(email); i++) {
         if (email[i] == '@') {
             atPos = i;
@@ -49,8 +51,20 @@ bool checkEmail(char email[], int length) {
             dotPos = i;
     }
     }
-    // Check if '@' and '.' are in the right positions
-    if (atPos == -1 || dotPos == -1 || atPos >= dotPos || atPos == 0 || dotPos == strlen(email) - 1) {
+    // check if there are spaces between chars
+    for (int i = 0; i < strlen(email); i++) {
+    if (email[i] == " ") {
+        spaces = true;
+    }
+    }
+    // check if there exist . after .
+    for (int i = 0; i < strlen(email)-1; i++) {
+        if (email[i] == "." && email[i+1] == ".") {
+            dotAfterDot = true;
+        }
+    }
+    // Check if email is valid
+    if (atPos == -1 || dotPos == -1 || atPos >= dotPos || atPos == 0 || dotPos == strlen(email) - 1 || spaces == true || dotAfterDot == true) {
         return false;
     } else {
         return true;
