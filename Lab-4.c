@@ -45,11 +45,11 @@ bool checkEmail(char email[], int length) {
         return false;
     }
 
-if (email[i] == ".") {
+if (email[0] == '.') {
     firstDot = true;
 }
 for (int i = 0; i < strlen(email)-1; i++) {
-    if ((email[i] == "." && email[i+1] == "@") || (email[i] == "@" && email[i+1] == ".")) {
+    if ((email[i] == '.' && email[i+1] == '@') || (email[i] == '@' && email[i+1] == '.')) {
         dotAfterAtOrAtAfterDot = true;
     }
 }
@@ -69,7 +69,7 @@ for (int i = 0; i < strlen(email)-1; i++) {
     }
     // check if there exist . after .
     for (int i = 0; i < strlen(email)-1; i++) {
-        if (email[i] == "." && email[i+1] == ".") {
+        if (email[i] == '.' && email[i+1] == '.') {
             dotAfterDot = true;
         }
     }
