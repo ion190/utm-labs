@@ -144,7 +144,25 @@ void kulevTask(int n, int m, int option, int** array) {
         break;
         
         case 6:
-            free(array);
+            for (int i = 0; i < n; i++) {
+                free((int*)array[i]);  // Free each row
+            }
+            free(*array);  // Free the array of pointers to rows
+            printf("Memory freed successfully\n");
+            
+            printf("\nMenu:\n");
+            printf("1 - Allocate dynamical memory for bidimensional array\n");
+            printf("2 - Input array elements from keyboard\n");
+            printf("3 - Input array with random values\n");
+            printf("4 - Sort odd columns in descendence order via liniar selection\n");
+            printf("5 - Ouput array elements of screen\n");
+            printf("6 - Free memory allocated for array\n");
+            printf("0 - Exit program\n\n");
+            
+            printf("Enter choice: ");
+            scanf("%d", &option);
+            
+            kulevTask(n, m, option, array);
         break;
         
         default:
@@ -153,10 +171,10 @@ void kulevTask(int n, int m, int option, int** array) {
 
 }
 
-void findIndex(int* arr, int length) {
+void findIndexIn1D(int* arr, int length) {
     int target;
     int index = -1;
-    printf("Target value = ");
+    printf("\nFind index of target value = ");
     scanf("%d", &target);
     
     for (int i = 0; i < length; i++) {
@@ -168,16 +186,16 @@ void findIndex(int* arr, int length) {
     }
     
     if (index == -1) {
-        printf("%d not found in the array.\n\n", target);
+        printf("%d not found in the array.\n", target);
     } else {
-        printf("The first occurrence of %d is at index %d.\n\n", target, index);
+        printf("The first occurrence of %d is at index %d.\n", target, index);
     }
 }
 
-void countTarget(int* arr, int length) {
+void countTargetIn1D(int* arr, int length) {
     int target;
     int count = 0;
-    printf("Target value = ");
+    printf("\nCount occurence of target value = ");
     scanf("%d", &target);
     
     for (int i = 0; i < length; i++) {
@@ -187,29 +205,30 @@ void countTarget(int* arr, int length) {
         arr++; // Move pointer the next element
     }
     
-    printf("Value %d found %d times\n\n", target, count);
+    printf("Value %d found %d times\n", target, count);
 }
 
 
 int main() {
     printf("Medium Tasks:\n\n");
-    int k;
+    int k; // k - length of 1D array
+    
     printf("Length of 1D array = ");
     scanf("%d", &k);
-    
-    int* arr = (int*)malloc(k * sizeof(int));
+    int* arr1D = (int*)malloc(k * sizeof(int));
     for (int i = 0; i < k; i++) {
         printf("Element %d: ", i+1);
-        scanf("%d", &arr[i]);
+        scanf("%d", &arr1D[i]);
     }
     
-    // Medium - implement a function that accepts the 1D integer array and returns the index of the first occurrence of a specific value(to be read from console when the function is called). Use pointers for the search
-    findIndex(arr, k);
+    // Medium 1 - implement a function that accepts the 1D integer array and returns the index of the first occurrence of a specific value(to be read from console when the function is called). Use pointers for the search
+    findIndexIn1D(arr1D, k);
+    // Medium 2 - implement a function that receives the 1D array of integers and a target value. The function should count how many times the target value(to be read from console when the function is called) appears in the array using pointers
+    countTargetIn1D(arr1D, k);
+
     
-    // Medium - implement a function that receives the 1D array of integers and a target value. The function should count how many times the target value(to be read from console when the function is called) appears in the array using pointers
-    countTarget(arr, k);
-    
-    printf("Kulev Task:\n\n");
+
+    printf("\nKulev Task:\n\n");
     // Kulev task
     int n, m, option;
     printf("n = ");
