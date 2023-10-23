@@ -4,7 +4,7 @@
 void kulevTask(int n, int m, int option, int** array) {
     switch (option) {
         case 0:
-
+            printf("Program exited successfully");
         break;
         
         case 1:
@@ -145,9 +145,9 @@ void kulevTask(int n, int m, int option, int** array) {
         
         case 6:
             for (int i = 0; i < n; i++) {
-                free((int*)array[i]);  // Free each row
+                free(array[i]);  // Free each row
             }
-            free(*array);  // Free the array of pointers to rows
+            free(array);
             printf("Memory freed successfully\n");
             
             printf("\nMenu:\n");
