@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
+#include <limits.h>
 
 
 struct Node {
@@ -17,6 +19,12 @@ struct Node* newNode(int value) {
     return node;
 }
 
+int height(struct Node* node) {
+    if (node == NULL) {
+        return 0;
+    }
+    return 1 + fmax(height(node->left), height(node->right));
+}
 
 void inputBinaryTree(struct Node* givenNode) {
     int leftValue, rightValue;
@@ -38,34 +46,37 @@ void inputBinaryTree(struct Node* givenNode) {
     }
 }
 
-void displayBinaryTree(struct Node* node, int tabs) {
-    if (node == NULL) {
+void printTree(int **M, struct Node *root, int col, int row,int height) {
+    if (root == NULL)
         return;
-    }
-
-    displayBinaryTree(node->right, tabs + 1);
-
-    for (int i = 0; i < tabs; i++) {
-        printf("    ");
-    }
-    printf("%d\n", node->data);
-
-    displayBinaryTree(node->left, tabs + 1);
+    M[row][col] = root->data;
+    printTree(M, root->left, col - pow(2, height - 2), row + 1, height - 1);
+    printTree(M, root->right, col + pow(2, height - 2), row + 1, height - 1);
 }
 
-void calculateHeightOfBinaryTree(struct Node* node, int currentheight, int* resultHeight) {
+void printTreeStructure(struct Node* root) {
+    if (root == NULL)
+        return;
+    int h = height(root);
+    int width = pow(2, height(root));
+    int **M = (int **)malloc(h * sizeof(int *));
+    for (int i = 0; i < h; i++) {
+        M[i] = (int *)calloc(width, sizeof(int));
+    }
 
-    if (node == NULL) {
-        if (currentheight > *resultHeight) {
-            *resultHeight = currentheight;
+    printTree(M, root, width / 2, 0, h);
+
+    for (int i = 0; i < h; i++) {
+        for (int j = 0; j < width; j++) {
+            if (M[i][j] == 0)
+                printf("  ");
+            else
+                printf("%d ", M[i][j]);
         }
-        return;
+        printf("\n");
     }
-    
-    calculateHeightOfBinaryTree(node->right, currentheight + 1, resultHeight);
-
-    calculateHeightOfBinaryTree(node->left, currentheight + 1, resultHeight);
 }
+
 
 void countLeafNodes(struct Node* node, int* resultLeafNodes) {
 
@@ -186,13 +197,6 @@ int max(int a, int b) {
     return (a > b) ? a : b;
 }
 
-int height(struct Node* node) {
-    if (node == NULL) {
-        return 0;
-    }
-    return 1 + max(height(node->left), height(node->right));
-}
-
 int isBalanced(struct Node* node) {
     if (node == NULL) {
         return 1;
@@ -214,11 +218,10 @@ int main() {
 
     // mandatory task
     printf("\nBinary Tree:\n");
-    displayBinaryTree(root, 0);
+    printTreeStructure(root);
 
     // easy task 1
-    int resultHeight = 0;
-    calculateHeightOfBinaryTree(root, 0, &resultHeight);
+    int resultHeight = height(root);
     printf("\nHeight: %d", resultHeight);
     
     // easy task 2
@@ -244,7 +247,7 @@ int main() {
     printf("\nDelete Node with value: ");
     scanf("%d", &val);
     root = deleteNode(root, val);
-    displayBinaryTree(root, 0);
+    printTreeStructure(root);
     
     // medium task 3
     if (isBalanced(root)) {
@@ -255,4 +258,3 @@ int main() {
 
     return 0;
 }
-
