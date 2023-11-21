@@ -61,7 +61,7 @@ void printTreeStructure(struct Node* root) {
     int width = pow(2, height(root));
     int **M = (int **)malloc(h * sizeof(int *));
     for (int i = 0; i < h; i++) {
-        M[i] = (int *)calloc(width, sizeof(int));
+        M[i] = (int *)calloc(width, sizeof(int)); // assign value 0 to each cell
     }
 
     printTree(M, root, width / 2, 0, h);
@@ -133,17 +133,18 @@ void fillArrWithInorderTraversal(struct Node* node, int* arr, int* index) {
 }
 
 // check if the array is sorted in ascending order
-void checkIfBinaryTreeIsBST(int* arr, int length) {
+bool checkIfBinaryTreeIsBST(int* arr, int length) {
     for (int i = 0; i < length; i++) {
         for (int j = 0; j < i; j++) {
             if (arr[j] >= arr[i]) {
                 printf("\nNot a Binary Search Tree (BST)");
-                return;
+                return false;
             }
         }
     }
     
     printf("\nYes, it is a Binary Search Tree (BST)");
+    return true;
 }
 
 struct Node* findMinValueNode(struct Node* node) {
@@ -239,15 +240,22 @@ int main() {
     int arrOfInorderTraversal[nrOfNodes];
     int index = 0;
     fillArrWithInorderTraversal(root, arrOfInorderTraversal, &index);
-    checkIfBinaryTreeIsBST(arrOfInorderTraversal, nrOfNodes);
+    bool binaryTreeCheck = checkIfBinaryTreeIsBST(arrOfInorderTraversal, nrOfNodes);
     
     
     // medium task 2
     int val;
     printf("\nDelete Node with value: ");
     scanf("%d", &val);
-    root = deleteNode(root, val);
-    printTreeStructure(root);
+    if (!binaryTreeCheck) {
+        printf("Can not delete any node, because it is not a binary search tree");
+    } else {
+        root = deleteNode(root, val);    
+        printTreeStructure(root);
+
+
+        
+    }
     
     // medium task 3
     if (isBalanced(root)) {
